@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.alibaba.arouter'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.example.admin.arouterdemo"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+                includeCompileClasspath true
+            }
+        }
+
+        ndk {
+            abiFilters "armeabi", "arm64-v8a", "x86", 'armeabi-v7a'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+        }
+    }
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.alibaba:arouter-api:1.3.1'
+    implementation 'com.alibaba:arouter-compiler:1.1.4'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    implementation 'com.github.lzyzsd:jsbridge:1.0.4'
+    implementation files('libs/faceid-1.1.jar')
+    implementation files('libs/lib-camera.jar')
+    implementation files('libs/okhttp-3.2.0.jar')
+    implementation files('libs/okio-1.6.0.jar')
+    //  阿里云实人认证服务测试
+    implementation files('libs/aliyun-oss-sdk-android-2.2.0.jar')
+    implementation files('libs/windvane-min-8.0.3.2.3.jar')
+    implementation(name: 'FaceLivenessOpen-2.1.6.10', ext: 'aar')
+    implementation(name: 'rpsdk-release_2.4.0.3', ext: 'aar')
+    implementation(name: 'SecurityGuardSDK-external-release-5.4.94', ext: 'aar')
+    implementation(name: 'SecurityBodySDK-external-release-5.4.66', ext: 'aar')
+    implementation(name: 'NoCaptchaSDK-external-release-5.4.26', ext: 'aar')
+    implementation 'com.youth.banner:banner:1.4.10'
+    //图片轮播最新版本
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    //图片选择
+    implementation 'com.yanzhenjie:album:2.1.2'
+    // 腾讯互动直播
+    implementation 'com.tencent.livesdk:livesdk:1.1.4'
+    implementation 'com.tencent.ilivesdk:ilivesdk:1.8.5.5'
+    // fastjson
+    implementation 'com.alibaba:fastjson:1.2.49'
+
+    // 微信支付
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+
+}
