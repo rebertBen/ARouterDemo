@@ -1,4 +1,4 @@
-package com.example.admin.arouterdemo.utils;
+package com.example.admin.arouterdemo.dialog;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,10 +15,11 @@ import android.widget.TextView;
 
 import com.example.admin.arouterdemo.R;
 import com.example.admin.arouterdemo.adapter.PopuListAdapter;
-import com.example.admin.arouterdemo.view.PhotosActivity;
+import com.example.admin.arouterdemo.view.photo.PhotoSelectActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * @author bobo
@@ -29,7 +30,8 @@ import java.util.List;
  * update_by：
  * update_time:
  */
-public class PopuWindowCenterUtil extends PopupWindow {
+public class PopuWindowSelectPhotos extends PopupWindow {
+
     private static PopupWindow popupWindow;
     private View contentView;
     private ListView listView;
@@ -38,14 +40,25 @@ public class PopuWindowCenterUtil extends PopupWindow {
     private PopuListAdapter adapter;
     private List<String> list = new ArrayList<>();
     private String title;
-    private Activity context;
 
-    public void showWindow(final Activity context, List<String> list, String title) {
-        if (this.list.size() > 0)
-            this.list.clear();
+    private static class Singleton{
+        public static final PopuWindowSelectPhotos instance = new PopuWindowSelectPhotos();
+    }
+
+    public static PopuWindowSelectPhotos getInstance(){
+        return Singleton.instance;
+    }
+
+    /**
+     * 展示
+     * @param context 上下文对象（Activity）
+     * @param list 列表
+     * @param title 标题
+     * @param label 区别跳转
+     */
+    public void showWindow(final Activity context, List<String> list, String title, int label) {
         this.list = list;
         this.title = title;
-        this.context = context;
 
         // 用于PopupWindow的View
         contentView = LayoutInflater.from(context)
@@ -61,7 +74,7 @@ public class PopuWindowCenterUtil extends PopupWindow {
 
         WindowManager.LayoutParams lp = context.getWindow().getAttributes();
         lp.alpha = 0.3f;
-        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         context.getWindow().setAttributes(lp);
 
         popupWindow.setOnDismissListener(new OnDismissListener() {
@@ -69,15 +82,15 @@ public class PopuWindowCenterUtil extends PopupWindow {
             public void onDismiss() {
                 WindowManager.LayoutParams lp = context.getWindow().getAttributes();
                 lp.alpha = 1.0f;
-                context.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//                context.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                 context.getWindow().setAttributes(lp);
             }
         });
 
-        initView(context);
+        initView(context, label);
     }
 
-    private void initView(final Context context) {
+    private void initView(final Context context, final int label) {
         listView = contentView.findViewById(R.id.listview);
         tvTitle = contentView.findViewById(R.id.tv_title);
 
@@ -88,7 +101,11 @@ public class PopuWindowCenterUtil extends PopupWindow {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((PhotosActivity) context).getFlag(position);
+                if (label == 100){
+                    ((PhotoSelectActivity) context).getFlag(position);
+                } else if (label == 200) {
+//                    ((MainActivity) context).getFlag(position);
+                }
                 popupWindow.dismiss();
             }
         });

@@ -34,8 +34,6 @@ public class ARouterActivity extends AppCompatActivity {
     Button tecentBtn;
     @BindView(R.id.ali_btn)
     Button aliBtn;
-    @BindView(R.id.success_btn)
-    Button successBtn;
     private TextView tv;
     private ImageView ivBack;
 
@@ -57,11 +55,9 @@ public class ARouterActivity extends AppCompatActivity {
         tv = findViewById(R.id.tv);
         ivBack = findViewById(R.id.iv_back);
 
-//        person = (Person) getIntent().getSerializableExtra("person");
-//        Log.e("arouter", age + "------" + name + "=====" + person.getName());
     }
 
-    @OnClick({R.id.iv_back, R.id.tecent_btn, R.id.ali_btn, R.id.success_btn})
+    @OnClick({R.id.iv_back, R.id.tecent_btn, R.id.ali_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -73,10 +69,6 @@ public class ARouterActivity extends AppCompatActivity {
                 break;
             case R.id.ali_btn:
                 ARouter.getInstance().build("/activity/ali").navigation();
-                break;
-            case R.id.success_btn:
-                setResult(RESULT_OK);
-                finish();
                 break;
         }
     }

@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button wechatBtn;
     @BindView(R.id.refresh_btn)
     Button refreshBtn;
+    @BindView(R.id.zxing_btn)
+    Button zxingBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

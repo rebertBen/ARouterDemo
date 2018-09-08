@@ -73,7 +73,6 @@ public class PhotosActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         for (int i = 0; i < permissions.length; i++) {
             if (!PerimissionsUtil.isPermissionGranted(this, permissions[i])) {
-//                PerimissionsUtil.showUserRequestPermission(this, "全线开启  ");
                 PerimissionsUtil.showPermissionDialog(this);
             }
         }
